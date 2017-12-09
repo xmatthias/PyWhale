@@ -15,9 +15,9 @@
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 import requests
+from pywhale.trade.Api import Api
 
-
-class Turbo (object):
+class Turbo (Api):
 
     def getTurboActiveContracts(self, key=None):
         """

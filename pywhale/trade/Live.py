@@ -15,14 +15,17 @@
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 import requests
+from pywhale.trade.Api import Api
 
 
-class Live (object):
+class Live (Api):
     """	Whaleclub.co cryptocurrency Exchange API Pyhon Client Live trading functions:"""
 
     # TODO Test all parameter
-    def newPosition(self, direction=None, market=None, leverage=None, size=None,
-                    entry_price=None, stop_loss=None, stop_loss_trailing=None, take_profit=None, key=None):
+    def newPosition(self, direction=None, market=None, leverage=None,
+                    size=None,
+                    entry_price=None, stop_loss=None, stop_loss_trailing=None,
+                    take_profit=None, key=None):
         """
 Submit a new position.
 To submit a limit or stop order, set the entry_price parameter in your request. We’ll automatically detect whether it’s a limit order or a stop order based on the current market price.

@@ -15,18 +15,15 @@
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 import json
-from pywhale.trade.Api import Api
 from pywhale.trade.General import General
 from pywhale.trade.Live import Live
 from pywhale.trade.Turbo import Turbo
 
 
-class PyWhale(Api, General, Live, Turbo):
+class PyWhale(General, Live, Turbo):
     """Whaleclub.co cryptocurrency Exchange API Pyhon Client"""
 
     def __init__(self, start_url='https://api.whaleclub.co/v1/'):
-        # inherit token from API class for our connection class instance
-        Api.__init__(self)
         # inherit token from API class for our connection class instance
         General.__init__(self)
         # inherit token from API class for our connection class instance
@@ -67,29 +64,6 @@ class PyWhale(Api, General, Live, Turbo):
             return False
         else:
             return True
-
-    def _updateKey(self, key):
-
-        if key is None:
-            key = self.default_key
-
-        # test if key parameter value is an accepted input
-        l = ['BTC_real_key', 'BTC_demo_key', 'DASH_real_key', 'DASH_demo_key']
-        if key in l:
-            i = l.index(key)
-            k = [
-                self.BTC_real_key,
-                self.BTC_demo_key,
-                self.DASH_real_key,
-                self.DASH_demo_key]
-            key = k[i]
-        else:
-            print("\nError, enter an acctepted value for key parameter, "
-                  "could either be 'BTC_real_key', 'BTC_demo_key', "
-                  "'DASH_real_key' or 'DASH_demo_key' \n")
-            return (False, key)
-
-        return (True, key)
 
     def print_welcome(self):
         """Print welcome message """

@@ -15,9 +15,10 @@
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 import requests
+from pywhale.trade.Api import Api
 
 
-class General(object):
+class General(Api):
     """	Whaleclub.co cryptocurrency Exchange API Pyhon Client general functions:"""
 
     def getMarkets(self, symbols='', key=None):
