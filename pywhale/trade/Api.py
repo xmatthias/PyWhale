@@ -67,8 +67,26 @@ class Api (object):
 
         # update token with token loaded
         self.BTC_demo_key, self.BTC_real_key, self.DASH_demo_key, self.DASH_real_key = keys
-        welcome_message = '\n' + '#' * 49 + '\n' + '#' * 6 + '          Welcome to PyWhale         ' + '#' * \
-            6 + '\n' + '#' * 6 + '   Python wrapper for whaleclub.co   ' + \
-                '#' * 6 + '\n' + '#' * 49 + '\n\n'
-        message = """API token loaded, ready to trade!\ntype PyWhale.help() at anytime to see available functions"""
-        print(welcome_message + message)
+
+
+    def _updateKey(self, key):
+        if key is None:
+            key = self.default_key
+
+        # test if key parameter value is an accepted input
+        l = ['BTC_real_key', 'BTC_demo_key', 'DASH_real_key', 'DASH_demo_key']
+        if key in l:
+            i = l.index(key)
+            k = [
+                self.BTC_real_key,
+                self.BTC_demo_key,
+                self.DASH_real_key,
+                self.DASH_demo_key]
+            key = k[i]
+        else:
+            print("\nError, enter an acctepted value for key parameter, "
+                  "could either be 'BTC_real_key', 'BTC_demo_key', "
+                  "'DASH_real_key' or 'DASH_demo_key' \n")
+            return (False, key)
+
+        return (True, key)
