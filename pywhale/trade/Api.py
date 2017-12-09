@@ -28,6 +28,7 @@ class Api(object):
         "DASH_real_key": "",
     }
     default_key = "BTC_demo_key"
+    loaded = False
 
     def __init__(self, start_url='https://api.whaleclub.co/v1/',
                  BTC_real_key='', BTC_demo_key='',
@@ -44,12 +45,15 @@ class Api(object):
 
 
         """
-        self.start_url = start_url
-        self.keydict["BTC_demo_key"] = BTC_demo_key
-        self.keydict["BTC_real_key"] = BTC_real_key
-        self.keydict["DASH_demo_key"] = DASH_demo_key
-        self.keydict["DASH_real_key"] = DASH_real_key
-        self.load_tokens()
+        # initialize only once
+        if not self.loaded:
+            self.start_url = start_url
+            self.keydict["BTC_demo_key"] = BTC_demo_key
+            self.keydict["BTC_real_key"] = BTC_real_key
+            self.keydict["DASH_demo_key"] = DASH_demo_key
+            self.keydict["DASH_real_key"] = DASH_real_key
+            self.load_tokens()
+            self.loaded = True
 
     def load_tokens(self):
         """Load API token from files
@@ -60,7 +64,6 @@ class Api(object):
             "BTC_real_key.txt",
             "DASH_demo_key.txt",
             "DASH_real_key.txt"]
-
         # open files and save token
         for file in files:
             fil = open(file, 'r')
