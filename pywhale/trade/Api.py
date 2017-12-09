@@ -18,12 +18,17 @@ import sys
 
 
 class Api (object):
-    """	Whaleclub.co cryptocurrency Exchange API Pyhon Client Connection Handler methods:"""
+    """	Whaleclub.co cryptocurrency Exchange API Pyhon Client
+        Connection Handler methods:"""
 
-    def __init__(self, BTC_real_key='', BTC_demo_key='',
+    verbose = False  # set to True if you get output twice
+
+    def __init__(self, start_url='https://api.whaleclub.co/v1/',
+                 BTC_real_key='', BTC_demo_key='',
                  DASH_real_key='', DASH_demo_key=''):
         """Create an object with authentication information.
-        API Token could be find from your API Settings panel which is available from the top right menu in your trading dashboard.
+        API Token could be find from your API Settings panel which is
+        available from the top right menu in your trading dashboard.
 
         Args:
                 DASH_demo_key -- DASH API Token for demo mode
@@ -33,6 +38,7 @@ class Api (object):
 
 
         """
+        self.start_url = start_url
         self.BTC_demo_key = BTC_demo_key
         self.BTC_real_key = BTC_real_key
         self.DASH_demo_key = DASH_demo_key
@@ -53,21 +59,20 @@ class Api (object):
         # open files and save token
         for file in files:
             f = open(file, 'r')
-            for lines in file:
-                key = f.readline().rstrip('\n')
-                keys.append(key)
-                break  # only read 1st line
+            key = f.readline().rstrip('\n')
+            keys.append(key)
 
         # check if token exist
         for key in keys:
             if len(key) == 0:
-                error_message = '''Error, at least one API token is missing\nCheck that you've correctly enter your API token in following files and try again:\nBTC_demo_key.txt,BTC_real_key.txt,DASH_demo_key.txt,DASH_real_key.txt'''
+                error_message = '''Error, at least one API token is missing.
+Check that the API tokens in following files are correct and try again:
+BTC_demo_key.txt,BTC_real_key.txt,DASH_demo_key.txt,DASH_real_key.txt'''
                 print(error_message)
                 sys.exit(1)
 
         # update token with token loaded
         self.BTC_demo_key, self.BTC_real_key, self.DASH_demo_key, self.DASH_real_key = keys
-
 
     @staticmethod
     def _testsymbols(symb):
@@ -76,7 +81,6 @@ class Api (object):
                   '5 elements at once. Lower your input number and retry\n')
             return False
         return True
-
 
     def _updateKey(self, key):
         if key is None:
