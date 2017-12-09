@@ -64,7 +64,7 @@ turbo 			object	Information about turbo trading, if it’s available for this ma
 
         return self._checkresp(req)
 
-    def getPrice(self, symbols, key=None):
+    def getPrice(self, symbols, key=None, spread=False):
         """
 Returns the current bid and ask prices for one or more markets.
 
@@ -72,13 +72,15 @@ args:
 -----
 symbols		string 		List of one or more comma-separated market symbols. You can request market information for up to 5 markets at once. Default is "" and return all symbols
 key		string 		One API token to use in order to send the request, could either be 'BTC_real_key', 'BTC_demo_key', 'DASH_real_key' or 'DASH_demo_key'. DEFAULT is BTC_demo_key
-
+spread  boolean     Calculates spread based on the current bid / ask prices
 resp:
 -----
 bid 		number		The current bid price.
 ask 		number		The current ask price.
 state 		string		Can be open, closed, pre (pre-market trading – stocks only), or after (after-market trading – stocks only)
 last_updated	integer		When prices for this market were last updated.
+diff_abs    number      The absolute spread (difference between bid and ask price)
+diff_perc   number      Spread in percent
         """
         # test key parameter value is an accepted input
         test0 = self._updateKey(key)
@@ -104,8 +106,11 @@ last_updated	integer		When prices for this market were last updated.
 
         if self.verbose:
             print('\nPrice informations: \n')
-
-        return self._checkresp(req)
+        prices = self._checkresp(req)
+        if not spread:
+            return prices
+        else:
+            return self.calcspread(prices)
 
     def getBalance(self, key=None):
         """
