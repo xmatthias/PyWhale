@@ -53,7 +53,7 @@ expires_at		integer		When the contract expires and turbo positions settle.
         if self.verbose:
             print('\nListing available active turbo contract: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def createNewTurboPosition(self, position_direction=None,
                                market=None, position_type=None, size=None, key=None):
@@ -135,7 +135,7 @@ currency 	string 		Base currency.
         if self.verbose:
             print('\nOpening a turbo position: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def getTurboPosition(self, position_id=None, key=None):
         """
@@ -183,7 +183,7 @@ currency 	string 		Base currency.
         if self.verbose:
             print('\nTurbo position informations: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def listturboPositions(self, position_state='active', limit=5, key=None):
         """
@@ -243,4 +243,4 @@ currency 	string 		Base currency.
         if self.verbose:
             print('\nListing all turbo positions: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)

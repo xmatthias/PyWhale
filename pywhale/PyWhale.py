@@ -24,19 +24,18 @@ class PyWhale(General, Live, Turbo):
     """Whaleclub.co cryptocurrency Exchange API Pyhon Client"""
 
     def __init__(self, start_url='https://api.whaleclub.co/v1/'):
-        # inherit token from API class for our connection class instance
         General.__init__(self)
-        # inherit token from API class for our connection class instance
         Live.__init__(self)
-        # inherit token from API class for our connection class instance
         Turbo.__init__(self)
+
+        PyWhale.print_welcome()
 
         self.start_url = start_url
         # set the key that will be used when no value is given in key parameter
         self.default_key = 'BTC_demo_key'
         self.verbose = False  # set to True if you get output twice
 
-    def _checkResp(self, resp):
+    def _checkresp(self, resp):
         """Check whenever an response return an error"""
         parsed = json.loads(resp.text)
 
@@ -48,7 +47,6 @@ class PyWhale(General, Live, Turbo):
 
         # we have an error
         else:
-
             print('\nOOps, somethings went Wrong!\n')
 
             try:
@@ -57,15 +55,9 @@ class PyWhale(General, Live, Turbo):
             except BaseException:
                 print(parsed)
 
-    def _testSymbols(self, symb):
-        if symb != '' and len(symb.split(',')) > 5:
-            print('Error, You can only request information for up to '
-                  '5 elements at once. Lower your input number and retry\n')
-            return False
-        else:
-            return True
 
-    def print_welcome(self):
+    @staticmethod
+    def print_welcome():
         """Print welcome message """
         print()
         print('#' * 49)

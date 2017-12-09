@@ -149,7 +149,7 @@ currency		string 	Base currency.
         if self.verbose:
             print('\nCreating a Position:')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def getPosition(self, position_id=None, key=None):
         """
@@ -207,7 +207,7 @@ currency		string 	Base currency.
         if self.verbose:
             print('\nGet position information: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def updatePosition(self, position_id=None, stop_loss=None,
                        stop_loss_trailing=None, take_profit=None, key=None):
@@ -295,7 +295,7 @@ currency		string 	Base currency.
         if self.verbose:
             print('\nUpdating position : \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def closePosition(self, position_id=None, key=None):
         """
@@ -363,7 +363,7 @@ currency		string 	Base currency.
         if self.verbose:
             print('\nClosing position : \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def cancelPosition(self, position_id=None, key=None):
         """
@@ -423,7 +423,7 @@ currency		string 	Base currency.
         if self.verbose:
             print('\nCanceling position: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def splitPosition(self, position_id=None, ratio=None, key=None):
         """
@@ -492,7 +492,7 @@ currency		string 	Base currency.
         if self.verbose:
             print('\nSplitting position : \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def listPositions(self, position_state='active', limit=5, key=None):
         """
@@ -563,4 +563,4 @@ currency		string 	Base currency.
         if self.verbose:
             print('\nListing all Transactions: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)

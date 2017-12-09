@@ -69,6 +69,15 @@ class Api (object):
         self.BTC_demo_key, self.BTC_real_key, self.DASH_demo_key, self.DASH_real_key = keys
 
 
+    @staticmethod
+    def _testsymbols(symb):
+        if symb != '' and len(symb.split(',')) > 5:
+            print('Error, You can only request information for up to '
+                  '5 elements at once. Lower your input number and retry\n')
+            return False
+        return True
+
+
     def _updateKey(self, key):
         if key is None:
             key = self.default_key

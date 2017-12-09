@@ -51,7 +51,7 @@ turbo 			object	Information about turbo trading, if it’s available for this ma
             return
 
         # check symbols does not exceed 5 values
-        if self._testSymbols(symbols) is False:
+        if Api._testsymbols(symbols) is False:
             return
 
         # Create request elements
@@ -62,7 +62,7 @@ turbo 			object	Information about turbo trading, if it’s available for this ma
         if self.verbose:
             print('\nMarkets informations: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def getPrice(self, symbols, key=None):
         """
@@ -88,7 +88,7 @@ last_updated	integer		When prices for this market were last updated.
             return
 
         # check symbols does not exceed 5 values
-        if self._testSymbols(symbols) is False:
+        if Api._testsymbols(symbols) is False:
             return
 
         # check symbols is not 0
@@ -105,7 +105,7 @@ last_updated	integer		When prices for this market were last updated.
         if self.verbose:
             print('\nPrice informations: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def getBalance(self, key=None):
         """
@@ -144,7 +144,7 @@ currency		string		Base currency.
         if self.verbose:
             print('\nYour balance informations: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     def getTransactions(self, transaction_type='deposits', limit=5, key=None):
         """
@@ -196,7 +196,7 @@ currency 	string 		Base currency.
         if self.verbose:
             print('\nYour Transactions history: \n')
 
-        return self._checkResp(r)
+        return self._checkresp(r)
 
     @classmethod
     def help(self, function_name=None):
