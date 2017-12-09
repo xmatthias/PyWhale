@@ -14,6 +14,8 @@
 # General Public LICENSE along with krakenex. If not, see
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
+import json
+
 
 class Api(object):
     """	Whaleclub.co cryptocurrency Exchange API Pyhon Client
@@ -30,28 +32,14 @@ class Api(object):
     default_key = "BTC_demo_key"
     loaded = False
 
-    def __init__(self, start_url='https://api.whaleclub.co/v1/',
-                 BTC_real_key='', BTC_demo_key='',
-                 DASH_real_key='', DASH_demo_key=''):
+    def __init__(self, start_url='https://api.whaleclub.co/v1/'):
         """Create an object with authentication information.
         API Token could be find from your API Settings panel which is
         available from the top right menu in your trading dashboard.
-
-        Args:
-                DASH_demo_key -- DASH API Token for demo mode
-                DASH_real_key -- DASH API Token for real mode
-                BTC_demo_key  -- BTC API Token for demo mode
-                BTC_real_key  -- BTC API Token for real mode
-
-
         """
         # initialize only once
         if not self.loaded:
             self.start_url = start_url
-            self.keydict["BTC_demo_key"] = BTC_demo_key
-            self.keydict["BTC_real_key"] = BTC_real_key
-            self.keydict["DASH_demo_key"] = DASH_demo_key
-            self.keydict["DASH_real_key"] = DASH_real_key
             self.load_tokens()
             self.loaded = True
 
@@ -84,6 +72,26 @@ class Api(object):
               "could either be 'BTC_real_key', 'BTC_demo_key', "
               "'DASH_real_key' or 'DASH_demo_key' \n")
         return(False, None)
+
+    def _checkresp(self, resp):
+        """Check whenever an response return an error"""
+        parsed = json.loads(resp.text)
+
+        # every thing is ok
+        if resp.status_code == 200 or resp.status_code == 201:
+            if self.verbose:
+                print(json.dumps(parsed, indent=4, sort_keys=True))
+            return parsed
+
+        # we have an error
+        else:
+            print('\nOOps, somethings went Wrong!\n')
+
+            try:
+                print(parsed['error']['name'])
+                print(parsed['error']['message'])
+            except BaseException:
+                print(parsed)
 
     @staticmethod
     def _testsymbols(symb):
