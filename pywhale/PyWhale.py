@@ -62,7 +62,8 @@ class PyWhale(Api, General, Live, Turbo):
 
     def _testSymbols(self, symb):
         if symb != '' and len(symb.split(',')) > 5:
-            print('Error, You can only request information for up to 5 elements at once. Lower your input number and retry\n')
+            print('Error, You can only request information for up to '
+                  '5 elements at once. Lower your input number and retry\n')
             return False
         else:
             return True
@@ -83,10 +84,24 @@ class PyWhale(Api, General, Live, Turbo):
                 self.DASH_demo_key]
             key = k[i]
         else:
-            print("\nError, enter an acctepted value for key parameter, could either be 'BTC_real_key', 'BTC_demo_key', 'DASH_real_key' or 'DASH_demo_key' \n")
+            print("\nError, enter an acctepted value for key parameter, "
+                  "could either be 'BTC_real_key', 'BTC_demo_key', "
+                  "'DASH_real_key' or 'DASH_demo_key' \n")
             return (False, key)
 
         return (True, key)
 
+    def print_welcome(self):
+        """Print welcome message """
+        print()
+        print('#' * 49)
+        print('#' * 6, ' ' * 9, "Welcome to PyWhale", ' ' * 9, '#' * 6)
+        print('#' * 6, ' ' * 9, "Python wrapper for whaleclub.co", '#' * 6)
+        print('#' * 49)
+        print()
+        print("API token loaded, ready to trade!")
+        print("type PyWhale.help() at anytime to see available functions")
 
+
+# pylint: disable=C0103
 pw = PyWhale()
