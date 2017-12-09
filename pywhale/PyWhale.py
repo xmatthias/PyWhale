@@ -15,6 +15,7 @@
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 import json
+from pywhale.trade.Api import Api
 from pywhale.trade.General import General
 from pywhale.trade.Live import Live
 from pywhale.trade.Turbo import Turbo
@@ -24,6 +25,8 @@ class PyWhale(General, Live, Turbo):
     """Whaleclub.co cryptocurrency Exchange API Pyhon Client"""
 
     def __init__(self, start_url='https://api.whaleclub.co/v1/'):
+        Api.__init__(self, start_url=start_url)
+
         General.__init__(self)
         Live.__init__(self)
         Turbo.__init__(self)
@@ -33,7 +36,6 @@ class PyWhale(General, Live, Turbo):
         self.start_url = start_url
         # set the key that will be used when no value is given in key parameter
         self.default_key = 'BTC_demo_key'
-        self.verbose = False  # set to True if you get output twice
 
     def _checkresp(self, resp):
         """Check whenever an response return an error"""
@@ -55,14 +57,13 @@ class PyWhale(General, Live, Turbo):
             except BaseException:
                 print(parsed)
 
-
     @staticmethod
     def print_welcome():
         """Print welcome message """
         print()
         print('#' * 49)
-        print('#' * 6, ' ' * 9, "Welcome to PyWhale", ' ' * 9, '#' * 6)
-        print('#' * 6, ' ' * 9, "Python wrapper for whaleclub.co", '#' * 6)
+        print('#' * 6, ' ' * 9, "Welcome to PyWhale", ' ' * 6, '#' * 6)
+        print('#' * 6, ' ' * 4, "Python wrapper for whaleclub.co", '#' * 5)
         print('#' * 49)
         print()
         print("API token loaded, ready to trade!")
