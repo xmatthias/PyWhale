@@ -18,8 +18,12 @@ import requests
 from pywhale.trade.Api import Api
 
 
+# referral partner id
+PARTNER_ID = "fAoRwgvNoQjekD3Hk"
+
 class Live (Api):
-    """	Whaleclub.co cryptocurrency Exchange API Pyhon Client Live trading functions:"""
+    """	Whaleclub.co cryptocurrency Exchange API Pyhon Client
+    Live trading functions:"""
 
     # TODO Test all parameter
     def newPosition(self, direction=None, market=None, leverage=None,
@@ -142,14 +146,14 @@ currency		string 	Base currency.
 
         # Create request elements
         url = self.start_url + 'position/new'
-        h = {"Authorization": "Bearer " + key,
-             "Partner-ID": "fAoRwgvNoQjekD3Hk"}
-        r = requests.post(url, headers=h, data=d)
+        hdr = {"Authorization": "Bearer " + key,
+               "Partner-ID": "fAoRwgvNoQjekD3Hk"}
+        req = requests.post(url, headers=hdr, data=d)
 
         if self.verbose:
             print('\nCreating a Position:')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def getPosition(self, position_id=None, key=None):
         """
@@ -201,13 +205,13 @@ currency		string 	Base currency.
 
         # Create request elements
         url = self.start_url + 'position/' + position_id
-        h = {"Authorization": "Bearer " + key}
-        r = requests.get(url, headers=h)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr)
 
         if self.verbose:
             print('\nGet position information: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def updatePosition(self, position_id=None, stop_loss=None,
                        stop_loss_trailing=None, take_profit=None, key=None):
@@ -288,9 +292,9 @@ currency		string 	Base currency.
 
         # Create request elements
         url = self.start_url + 'position/update/' + position_id
-        h = {"Authorization": "Bearer " + key,
-             "Partner-ID": "fAoRwgvNoQjekD3Hk"}
-        r = requests.put(url, headers=h, data=d)
+        hdr = {"Authorization": "Bearer " + key,
+               "Partner-ID": "fAoRwgvNoQjekD3Hk"}
+        req = requests.put(url, headers=hdr, data=d)
 
         if self.verbose:
             print('\nUpdating position : \n')
@@ -356,14 +360,14 @@ currency		string 	Base currency.
 
         # Create request elements
         url = self.start_url + 'position/close/' + position_id
-        h = {"Authorization": "Bearer " + key,
-             "Partner-ID": "fAoRwgvNoQjekD3Hk"}
-        r = requests.put(url, headers=h)
+        hdr = {"Authorization": "Bearer " + key,
+               "Partner-ID": PARTNER_ID}
+        req = requests.put(url, headers=hdr)
 
         if self.verbose:
             print('\nClosing position : \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def cancelPosition(self, position_id=None, key=None):
         """
@@ -417,13 +421,13 @@ currency		string 	Base currency.
 
         # Create request elements
         url = self.start_url + 'position/cancel/' + position_id
-        h = {"Authorization": "Bearer " + key}
-        r = requests.put(url, headers=h)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.put(url, headers=hdr)
 
         if self.verbose:
             print('\nCanceling position: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def splitPosition(self, position_id=None, ratio=None, key=None):
         """
@@ -485,14 +489,14 @@ currency		string 	Base currency.
 
         # Create request elements
         url = self.start_url + 'position/split/' + position_id
-        h = {"Authorization": "Bearer " + key,
+        hdr = {"Authorization": "Bearer " + key,
              "Partner-ID": "fAoRwgvNoQjekD3Hk"}
-        r = requests.post(url, headers=h, data=d)
+        req = requests.post(url, headers=hdr, data=d)
 
         if self.verbose:
             print('\nSplitting position : \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def listPositions(self, position_state='active', limit=5, key=None):
         """
@@ -557,10 +561,10 @@ currency		string 	Base currency.
 
         # Create request elements
         url = self.start_url + 'positions/' + position_state
-        h = {"Authorization": "Bearer " + key}
-        r = requests.get(url, headers=h, data=d)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr, data=d)
 
         if self.verbose:
             print('\nListing all Transactions: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)

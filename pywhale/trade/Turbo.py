@@ -17,7 +17,13 @@
 import requests
 from pywhale.trade.Api import Api
 
-class Turbo (Api):
+# referral partner id
+PARTNER_ID = "fAoRwgvNoQjekD3Hk"
+
+
+class Turbo(Api):
+    """	Whaleclub.co cryptocurrency Exchange API Pyhon Client
+    Turbo trading functions:"""
 
     def getTurboActiveContracts(self, key=None):
         """
@@ -47,13 +53,13 @@ expires_at		integer		When the contract expires and turbo positions settle.
 
         # Create request elements
         url = self.start_url + 'contracts'
-        h = {"Authorization": "Bearer " + key}
-        r = requests.get(url, headers=h)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr)
 
         if self.verbose:
             print('\nListing available active turbo contract: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def createNewTurboPosition(self, position_direction=None,
                                market=None, position_type=None, size=None, key=None):
@@ -128,14 +134,14 @@ currency 	string 		Base currency.
 
         # Create request elements
         url = self.start_url + 'position-turbo/new'
-        h = {"Authorization": "Bearer " + key,
-             "Partner-ID": "fAoRwgvNoQjekD3Hk"}
-        r = requests.post(url, headers=h, data=d)
+        hdr = {"Authorization": "Bearer " + key,
+             "Partner-ID": PARTNER_ID}
+        req = requests.post(url, headers=hdr, data=d)
 
         if self.verbose:
             print('\nOpening a turbo position: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def getTurboPosition(self, position_id=None, key=None):
         """
@@ -177,13 +183,13 @@ currency 	string 		Base currency.
 
         # Create request elements
         url = self.start_url + 'position-turbo/' + position_id
-        h = {"Authorization": "Bearer " + key}
-        r = requests.get(url, headers=h)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr)
 
         if self.verbose:
             print('\nTurbo position informations: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def listturboPositions(self, position_state='active', limit=5, key=None):
         """
@@ -237,10 +243,10 @@ currency 	string 		Base currency.
 
         # Create request elements
         url = self.start_url + 'positions-turbo/' + position_state
-        h = {"Authorization": "Bearer " + key}
-        r = requests.get(url, headers=h, data=d)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr, data=d)
 
         if self.verbose:
             print('\nListing all turbo positions: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
