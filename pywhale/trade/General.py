@@ -56,13 +56,13 @@ turbo 			object	Information about turbo trading, if it’s available for this ma
 
         # Create request elements
         url = self.start_url + 'markets/' + str(symbols)
-        h = {"Authorization": "Bearer " + key}
-        r = requests.get(url, headers=h)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr)
 
         if self.verbose:
             print('\nMarkets informations: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def getPrice(self, symbols, key=None):
         """
@@ -93,19 +93,19 @@ last_updated	integer		When prices for this market were last updated.
 
         # check symbols is not 0
         if symbols == '':
-            print(
-                'Error, you should at least submit one element in the symbols parameter.\n')
+            print('Error, you should at least submit one '
+                  'element in the symbols parameter.\n')
             return
 
         # Create request elements
         url = self.start_url + 'price/' + str(symbols)
-        h = {"Authorization": "Bearer " + key}
-        r = requests.get(url, headers=h)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr)
 
         if self.verbose:
             print('\nPrice informations: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def getBalance(self, key=None):
         """
@@ -138,13 +138,13 @@ currency		string		Base currency.
 
         # Create request elements
         url = self.start_url + 'balance'
-        h = {"Authorization": "Bearer " + key}
-        r = requests.get(url, headers=h)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr)
 
         if self.verbose:
             print('\nYour balance informations: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     def getTransactions(self, transaction_type='deposits', limit=5, key=None):
         """
@@ -189,14 +189,13 @@ currency 	string 		Base currency.
 
         # Create request elements
         url = self.start_url + 'transactions/' + transaction_type
-        h = {"Authorization": "Bearer " + key}
-        d = {'limit': limit}
-        r = requests.get(url, headers=h,)
+        hdr = {"Authorization": "Bearer " + key}
+        req = requests.get(url, headers=hdr)
 
         if self.verbose:
             print('\nYour Transactions history: \n')
 
-        return self._checkresp(r)
+        return self._checkresp(req)
 
     @classmethod
     def help(self, function_name=None):
@@ -231,7 +230,7 @@ getTurboPosition()		Fetch information about an existing turbo position.
 listturboPositions()		List turbo positions.
 
 You could type print(PyWhale.function_name.__doc__) to get more info about any function
-		"""
+"""
 
         print(help_message)
         return
