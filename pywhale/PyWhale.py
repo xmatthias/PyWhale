@@ -14,7 +14,6 @@
 # General Public LICENSE along with krakenex. If not, see
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
-import json
 from statistics import mean
 from pywhale.trade.Api import Api
 from pywhale.trade.General import General
