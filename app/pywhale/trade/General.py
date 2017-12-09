@@ -18,10 +18,10 @@ import requests
 
 
 class General(object):
-	"""	Whaleclub.co cryptocurrency Exchange API Pyhon Client general functions:"""
+    """	Whaleclub.co cryptocurrency Exchange API Pyhon Client general functions:"""
 
-	def getMarkets(self, symbols='',key=None):
-		"""
+    def getMarkets(self, symbols='', key=None):
+        """
 Returns market information for one or more markets.
 Default returns a list of of available markets with basic information such as display name and category.
 
@@ -40,31 +40,31 @@ financing_rate 	number	Daily financing rate. Multiply by 100 to get the amount i
 category 		string	Asset class.
 turbo 			object	Information about turbo trading, if it’s available for this market. The payoff object contains the contract duration (in minutes) and the associated payoff.
 
-		"""
+        """
 
-		#test key parameter value is an accepted input
-		test0 =  self._updateKey(key)
-		if test0[0] is True:
-			key = test0[1]
-		else:
-			return
+        # test key parameter value is an accepted input
+        test0 = self._updateKey(key)
+        if test0[0] is True:
+            key = test0[1]
+        else:
+            return
 
-		#check symbols does not exceed 5 values
-		if self._testSymbols(symbols) is False:
-			return
+        # check symbols does not exceed 5 values
+        if self._testSymbols(symbols) is False:
+            return
 
-		#Create request elements
-		url = self.start_url+'markets/' + str(symbols)
-		h = {"Authorization":"Bearer "+key}
-		r = requests.get(url,headers=h)
+        # Create request elements
+        url = self.start_url + 'markets/' + str(symbols)
+        h = {"Authorization": "Bearer " + key}
+        r = requests.get(url, headers=h)
 
-		if self.verbose:
-		    print('\nMarkets informations: \n')
+        if self.verbose:
+            print('\nMarkets informations: \n')
 
-		return self._checkResp(r)
+        return self._checkResp(r)
 
-	def getPrice(self,symbols,key=None):
-		"""
+    def getPrice(self, symbols, key=None):
+        """
 Returns the current bid and ask prices for one or more markets.
 
 args:
@@ -78,36 +78,36 @@ bid 		number		The current bid price.
 ask 		number		The current ask price.
 state 		string		Can be open, closed, pre (pre-market trading – stocks only), or after (after-market trading – stocks only)
 last_updated	integer		When prices for this market were last updated.
-		"""
-		#test key parameter value is an accepted input
-		test0 =  self._updateKey(key)
-		if test0[0] is True:
-			key = test0[1]
-		else:
-			return
+        """
+        # test key parameter value is an accepted input
+        test0 = self._updateKey(key)
+        if test0[0] is True:
+            key = test0[1]
+        else:
+            return
 
-		#check symbols does not exceed 5 values
-		if self._testSymbols(symbols) is False:
-			return
+        # check symbols does not exceed 5 values
+        if self._testSymbols(symbols) is False:
+            return
 
-		#check symbols is not 0
-		if symbols == '':
-			print ('Error, you should at least submit one element in the symbols parameter.\n')
-			return
+        # check symbols is not 0
+        if symbols == '':
+            print(
+                'Error, you should at least submit one element in the symbols parameter.\n')
+            return
 
-		#Create request elements
-		url = self.start_url+'price/' + str(symbols)
-		h = {"Authorization":"Bearer "+key}
-		r = requests.get(url,headers=h)
-		
-		if self.verbose:
-			print('\nPrice informations: \n')
-        
+        # Create request elements
+        url = self.start_url + 'price/' + str(symbols)
+        h = {"Authorization": "Bearer " + key}
+        r = requests.get(url, headers=h)
 
-		return self._checkResp(r)
+        if self.verbose:
+            print('\nPrice informations: \n')
 
-	def getBalance(self,key=None):
-		"""
+        return self._checkResp(r)
+
+    def getBalance(self, key=None):
+        """
 Returns information about your balance.
 BTC/DASH real or demo balance information will be returned based on whether you pass 'BTC_real_key', 'BTC_demo_key', 'DASH_real_key' or 'DASH_demo_key' as key parameter.
 
@@ -126,27 +126,27 @@ pending_amount		object		Balance used in pending positions across markets, in sat
 active_amount_turbo	object		Balance used in active turbo positions across markets, in satoshis.
 last_updated		integer		When your balance was last updated.
 currency		string		Base currency.
-		"""		
+        """
 
-		#test key parameter value is an accepted input
-		test0 =  self._updateKey(key)
-		if test0[0] is True:
-			key = test0[1]
-		else:
-			return
+        # test key parameter value is an accepted input
+        test0 = self._updateKey(key)
+        if test0[0] is True:
+            key = test0[1]
+        else:
+            return
 
-		#Create request elements
-		url = self.start_url+'balance'
-		h = {"Authorization":"Bearer "+key}
-		r = requests.get(url,headers=h)
+        # Create request elements
+        url = self.start_url + 'balance'
+        h = {"Authorization": "Bearer " + key}
+        r = requests.get(url, headers=h)
 
-		if self.verbose:
-			print ('\nYour balance informations: \n')
+        if self.verbose:
+            print('\nYour balance informations: \n')
 
-		return self._checkResp(r)
+        return self._checkResp(r)
 
-	def getTransactions(self, transaction_type='deposits',limit=5, key=None):
-		"""
+    def getTransactions(self, transaction_type='deposits', limit=5, key=None):
+        """
 List transactions that have occurred on your account.
 Use this function to request a list of transactions. transaction_type can be deposits, withdrawals, referrals, or bonuses. Defaults to deposits.
 Transactions returned are sorted by creation date (created_at).
@@ -166,40 +166,41 @@ hash 		string 		Bitcoin transaction hash. Appears only for deposits.
 address 	string 		Destination Bitcoin address. Appears only for withdrawals.
 created_at 	integer 	When the transaction was made.
 currency 	string 		Base currency.
-		"""		
+        """
 
-		#test limit parameter value
-		if limit < 1 or limit > 50:
-			print ('\nError, limit parameter value should be between 0 and 50')
-			return
+        # test limit parameter value
+        if limit < 1 or limit > 50:
+            print('\nError, limit parameter value should be between 0 and 50')
+            return
 
-		#test transaction_type parameter value
-		if transaction_type not in ['deposits','withdrawals','referrals','bonuses']:
-			print ("\nError, transaction_type parameter value should be either 'deposits','withdrawals','referrals','bonuses'")
-			return
+        # test transaction_type parameter value
+        if transaction_type not in ['deposits',
+                                    'withdrawals', 'referrals', 'bonuses']:
+            print("\nError, transaction_type parameter value should be either 'deposits','withdrawals','referrals','bonuses'")
+            return
 
-		#test key parameter value is an accepted input
-		test0 =  self._updateKey(key)
-		if test0[0] is True:
-			key = test0[1]
-		else:
-			return
+        # test key parameter value is an accepted input
+        test0 = self._updateKey(key)
+        if test0[0] is True:
+            key = test0[1]
+        else:
+            return
 
-		#Create request elements
-		url = self.start_url+'transactions/'+transaction_type
-		h = {"Authorization":"Bearer "+key}
-		d = {'limit':limit}
-		r = requests.get(url,headers=h,)
+        # Create request elements
+        url = self.start_url + 'transactions/' + transaction_type
+        h = {"Authorization": "Bearer " + key}
+        d = {'limit': limit}
+        r = requests.get(url, headers=h,)
 
-		if self.verbose:
-			print ('\nYour Transactions history: \n')
+        if self.verbose:
+            print('\nYour Transactions history: \n')
 
-		return self._checkResp(r)
-	
-	@classmethod
-	def help(self,function_name = None):
-		"""Returns a list of all callable functions"""
-		help_message = """
+        return self._checkResp(r)
+
+    @classmethod
+    def help(self, function_name=None):
+        """Returns a list of all callable functions"""
+        help_message = """
 Available functions:
 -------------------
 
@@ -230,7 +231,6 @@ listturboPositions()		List turbo positions.
 
 You could type print(PyWhale.function_name.__doc__) to get more info about any function
 		"""
-		
-		print (help_message)
-		return 
 
+        print(help_message)
+        return
