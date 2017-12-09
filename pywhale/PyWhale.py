@@ -37,7 +37,7 @@ class PyWhale(Api, General, Live, Turbo):
         self.start_url = start_url
         # set the key that will be used when no value is given in key parameter
         self.default_key = 'BTC_demo_key'
-        self.verbose = True  # set to True if you get output twice
+        self.verbose = False  # set to True if you get output twice
 
     def _checkResp(self, resp):
         """Check whenever an response return an error"""
