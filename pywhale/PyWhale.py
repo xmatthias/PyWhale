@@ -14,7 +14,6 @@
 # General Public LICENSE along with krakenex. If not, see
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
-from statistics import mean
 from pywhale.trade.Api import Api
 from pywhale.trade.General import General
 from pywhale.trade.Live import Live
@@ -48,20 +47,6 @@ class PyWhale(General, Live, Turbo):
         print()
         print("API token loaded, ready to trade!")
         print("type PyWhale.help() at anytime to see available functions")
-
-    def calcspread(self, price):
-        """Calculates absolute and perc. spread and adds it to the input object.
-           Accepts a price-object as returned from getPrice
-        """
-        for key, value in price.items():
-            diff = float(value["ask"]) - float(value["bid"])
-            diffp = diff / \
-                mean([float(value["ask"]), float(value["bid"])]) * 100
-            print("Market: ", key, "\tAbs:", diff, "\trel:", diffp)
-            price[key]["diff_abs"] = diff
-            price[key]["diff_perc"] = diffp
-
-        return price
 
 
 if __name__ == "__main__":

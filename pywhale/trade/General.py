@@ -15,6 +15,7 @@
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 import requests
+from statistics import mean
 from pywhale.trade.Api import Api
 
 
@@ -63,6 +64,21 @@ turbo 			object	Information about turbo trading, if it’s available for this ma
             print('\nMarkets informations: \n')
 
         return self._checkresp(req)
+
+    def calcspread(self, price):
+        """Calculates absolute and perc. spread and adds it to the input object.
+           Accepts a price-object as returned from getPrice
+        """
+        for key, value in price.items():
+            diff = float(value["ask"]) - float(value["bid"])
+            diffp = diff / \
+                mean([float(value["ask"]), float(value["bid"])]) * 100
+            if self.verbose:
+                print("Market: ", key, "\tAbs:", diff, "\trel:", diffp)
+            price[key]["diff_abs"] = diff
+            price[key]["diff_perc"] = diffp
+
+        return price
 
     def getPrice(self, symbols, key=None, spread=False):
         """
